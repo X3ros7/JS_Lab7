@@ -1,0 +1,36 @@
+<div class="task-item">
+  <h3>{{ task.title }}</h3>
+  @if(task.description) {
+  <p><strong>Description:</strong> {{ task.description }}</p>
+  }
+  <p><strong>Assignee:</strong> {{ task.assignee }}</p>
+  <p><strong>Due date :</strong> {{ task.dueDate | date : "d.MM.YYYY" }}</p>
+
+  <p [ngClass]="getStatusClass()"><strong>Status:</strong> {{ task.status }}</p>
+
+  <div class="status-select">
+    <select (change)="updateStatus($event)">
+      <option
+        [value]="TaskStatus.TODO"
+        [selected]="task.status === TaskStatus.TODO"
+      >
+        TODO
+      </option>
+      <option
+        [value]="TaskStatus.IN_PROGRESS"
+        [selected]="task.status === TaskStatus.IN_PROGRESS"
+      >
+        IN_PROGRESS
+      </option>
+      <option
+        [value]="TaskStatus.DONE"
+        [selected]="task.status === TaskStatus.DONE"
+      >
+        DONE
+      </option>
+    </select>
+  </div>
+
+  <button (click)="updateTask()">Update</button>
+  <button (click)="deleteTask(task.id)">Delete</button>
+</div>

@@ -1,0 +1,25 @@
+<app-task-form
+    [editTask]="editingTask"
+    (taskAdd)="addTask($event)"
+></app-task-form>
+<h2>Tasks list</h2>
+
+<div class="task-filter">
+    <p>Filter by status:</p>
+    <select (change)="onSelected($event)">
+        <option [value]="''">All</option>
+        <option [value]="TaskStatus.TODO">To Do</option>
+        <option [value]="TaskStatus.IN_PROGRESS">In Progress</option>
+        <option [value]="TaskStatus.DONE">Done</option>
+    </select>
+</div>
+@for(task of myTasks$ | async; track task.id) {
+<app-task-item
+    [task]="task"
+    (taskDeleted)="deleteTask($event)"
+    (taskEdited)="editTask($event)"
+>
+</app-task-item>
+} @empty {
+<p>No tasks found</p>
+}
