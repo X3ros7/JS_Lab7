@@ -11,17 +11,10 @@ if (!MONGO_URI) {
 }
 
 export const connectDB = async () => {
-  try {
-    await mongoose.connect(MONGO_URI, {
-      connectTimeoutMS: 10000,
-      serverSelectionTimeoutMS: 5000,
-    });
-    console.log("MongoDB connected");
-  } catch (error) {
-    console.error("MongoDB connection error:", error);
-    console.log("Retrying MongoDB connection in 5 seconds...");
-    setTimeout(connectDB, 5000);
-  }
+  await mongoose.connect(MONGO_URI, {
+    connectTimeoutMS: 10000,
+    serverSelectionTimeoutMS: 5000,
+  });
 };
 
 mongoose.connection.on("error", (error) => {
